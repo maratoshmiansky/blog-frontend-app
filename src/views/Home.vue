@@ -8,12 +8,14 @@
       <input type="text" v-model="newPostsParams.body" />
       Image:
       <input type="text" v-model="newPostsParams.image" />
+      <!-- <img v-bind:src="post.image" alt="post.title" /> -->
     </div>
     <button v-on:click="createPost()">Create a new post!</button>
     <div v-for="post in posts" v-bind:key="post.id">
       <h2>Title: {{ post.title }}</h2>
       <p>Body: {{ post.body }}</p>
-      <p>Image: {{ post.image }}</p>
+      <!-- <p>Image: {{ post.image }}</p> -->
+      <img v-bind:src="post.image" alt="post.title" />
       <button v-on:click="showPost(post)">More info!</button>
     </div>
     <dialog id="post-details">
