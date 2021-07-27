@@ -1,23 +1,39 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <li>
+        <router-link to="/">Home</router-link>
+      </li>
       |
-      <router-link to="/about">About</router-link>
+      <li>
+        <router-link to="/about">About</router-link>
+      </li>
       |
-      <router-link to="/test">Test</router-link>
+      <li>
+        <router-link to="/test">Test</router-link>
+      </li>
       |
-      <router-link to="/signup">Signup</router-link>
+      <li v-if="!isLoggedIn()">
+        <router-link to="/signup">Signup</router-link>
+      </li>
       |
-      <router-link to="/login">Login</router-link>
+      <li v-if="!isLoggedIn()">
+        <router-link to="/login">Login</router-link>
+      </li>
       |
-      <router-link to="/logout">Logout</router-link>
+      <li v-if="isLoggedIn()">
+        <router-link to="/logout">Logout</router-link>
+      </li>
       |
-      <router-link to="/posts">Posts</router-link>
+      <li>
+        <router-link to="/posts">Posts</router-link>
+      </li>
       |
-      <router-link to="/posts/new">Create</router-link>
+      <li>
+        <router-link to="/posts/new">Create</router-link>
+      </li>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
@@ -70,7 +86,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
-    </nav>
+    </nav> -->
     <router-view />
   </div>
 </template>
@@ -83,3 +99,18 @@ body {
   text-align: center;
 }
 </style>
+
+<script>
+// import axios from "axios";
+export default {
+  methods: {
+    isLoggedIn: function () {
+      if (localStorage.getItem("jwt")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+};
+</script>

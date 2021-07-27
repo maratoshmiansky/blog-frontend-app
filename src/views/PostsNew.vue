@@ -1,5 +1,6 @@
 <template>
   <div class="posts-new">
+    <img v-if="status" :src="`https://http.cat/${status}`" />
     <form v-on:submit.prevent="createPost()">
       <h1>New Post</h1>
       <ul>
@@ -12,6 +13,7 @@
       <div>
         <label>Body:</label>
         <input type="text" v-model="newPostParams.body" />
+        <small>{{ newPostParams.body.length }} characters entered</small>
       </div>
       <div>
         <label>Image:</label>
@@ -28,16 +30,22 @@ export default {
   data: function () {
     return {
       errors: [],
-      newPostParams: {},
+      status: "",
+      newPostParams: { body: "" },
     };
   },
   methods: {
     createPost: function () {
       console.log("Creating that post!");
-      axios.post("/posts", this.newPostParams).then((response) => {
-        this.$router.push("/posts");
-        console.log(response.data);
-      });
+      axios
+        .post("/posts", this.newPostParams)
+        .then((response) => {
+          this.$router.push("/posts");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          this.status = error.response.status;
+        });
     },
   },
 };

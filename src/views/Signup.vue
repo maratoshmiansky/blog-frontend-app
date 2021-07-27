@@ -15,7 +15,8 @@
       </div>
       <div>
         <label>Password:</label>
-        <input type="password" v-model="newUserParams.password" />
+        <input type="password" maxlength="16" v-model="newUserParams.password" />
+        <small>Password must be 16 characters or less</small>
       </div>
       <div>
         <label>Password confirmation:</label>
